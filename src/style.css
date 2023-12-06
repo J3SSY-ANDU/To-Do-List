@@ -49,17 +49,23 @@ body {
     font-size: medium;
 }
 
-.task-list li {
-    border-bottom: 1px #6c5f5b7a solid;
+.task {
     text-transform: capitalize;
     margin: 0 10%;
     margin-bottom: 20px;
     overflow: hidden;
+    display: flex;
 }
 
-.task:hover {
-    text-decoration: line-through #1F1717;
+.task label {
+    border-bottom: 1px #6c5f5b7a solid;
+    margin-left: 10px;
+    flex: 3;
+}
+
+.task label:hover {
     color: #6c5f5ba2;
+    border-bottom: 1px #6c5f5b5c solid;
 }
 
 .btn {
