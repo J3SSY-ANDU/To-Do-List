@@ -1,0 +1,80 @@
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    text-align: center;
+    margin: 200px;
+}
+
+.task-title {
+    margin-top: 20px;
+    color: #6C5F5B;
+}
+
+.task-manager {
+    box-shadow: 0px 2px 4px 0px #6c5f5b85;
+    border-radius: 4px;
+    display: inline-block;
+    width: 350px;
+    text-align: center;
+    color: #6C5F5B;
+}
+
+#new-task {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    outline: transparent;
+    border-radius: 5px;
+    border: 1px #6c5f5b7e solid;
+    padding: 0 5px;
+    height: 35px;
+    width: 80%;
+    font-size: small;
+}
+
+#new-task:hover {
+    border: 1px #6c5f5bc8 solid;
+}
+
+#new-task:focus::placeholder {
+    color: transparent;
+}
+
+.task-list {
+    list-style: square;
+    text-align: left;
+    font-size: medium;
+}
+
+.task-list li {
+    border-bottom: 1px #6c5f5b7a solid;
+    text-transform: capitalize;
+    margin: 0 10%;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.task:hover {
+    text-decoration: line-through #1F1717;
+    color: #6c5f5ba2;
+}
+
+.btn {
+    width: 80%;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    height: 30px;
+    background-color: #BFCAD6;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: #1f1717ee;
+}
+
+.btn:hover {
+    background-color: #bfcad6ec;
+    color: black;
+}
