@@ -9,10 +9,7 @@ const audio = new Audio("../data/pop.mp3");
 
 
 // Cookie n value
-let cookieCount = 0;
-let cookie = document.cookie;
-console.log(cookie.search("n"));
-cookie.search("n") >= 0 ? setCookies("n", parseInt(cookie.at(cookie.search("n")+2)), 1) : setCookies("n", cookieCount, 1);
+let n = getCookie("n"); // cookie count
 
 
 // Set cookie
@@ -21,18 +18,32 @@ function setCookies(cname, cvalue, exdays) {
     date.setTime(date.getTime() + (exdays*24*60*60*1000));
     let expires = "expires=" + date.toUTCString();
     cname = cname + "=";
-    cvalue = cvalue + "; ";
+    cvalue = cvalue + ";";
     document.cookie = cname + cvalue + expires + ";path=/src; " + "SameSite=None; " + "Secure;";
+}
+
+
+// Get cookie
+function getCookie(cname) {
+    let cookie = document.cookie;
+    let tasksArray = cookie.split(";");
+    for (let i = 0; i < tasksArray.length; i++) {
+        let val = tasksArray[i];
+        let valArray = val.trim().split("=");
+        if (valArray[0] == cname) {
+            return valArray[1];
+        }
+    }
+    return "";
 }
 
 
 // Add task
 function addTask() {
     if (input.value != "") {
-        let cookie = document.cookie;
-        let task_count = parseInt(cookie.at(cookie.search("n")+2));
-        setCookies("n", parseInt(cookie.at(cookie.search("n")+2))+1, 1);
-        setCookies(`task_${++task_count}`, input.value, 1);
+        n++;
+        setCookies("n", n, 1);
+        setCookies(`task_${n}`, input.value, 1);
 
         let task = document.createElement("li");
         let checkBox = document.createElement("input");
