@@ -87,8 +87,8 @@ function addToList(val, i) {
 function addTask() {
     if (input.value != "") {
         n_tasks++;
-        setCookies("n_tasks", n_tasks, 1);
-        setCookies(`new_task_${n_tasks}`, input.value, 1);
+        setCookies("n_tasks", n_tasks, 7);
+        setCookies(`new_task_${n_tasks}`, input.value, 7);
 
         audio.play();
         
@@ -107,8 +107,8 @@ function removeTask(event) {
         list.removeChild(parent);
 
         t_complete++;
-        setCookies("t_complete", t_complete, 1);
-        setCookies(`completed_task_${t_complete}`, getCookie(parent.id), 1);
+        setCookies("t_complete", t_complete, 7);
+        setCookies(`completed_task_${t_complete}`, getCookie(parent.id), 7);
         removeCookie(parent.id);
     }
 }
