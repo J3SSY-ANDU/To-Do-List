@@ -38,6 +38,36 @@ function getCookie(cname) {
 }
 
 
+// Print Cookies
+function printCookies() {
+    if (document.cookie.length != 0) {
+        let cookieArray = document.cookie.split(";");
+        for (let cookie of cookieArray) {
+            let task = cookie.trim().split("=");
+            if (task[0] != "n") {
+                addToList(getCookie(task[0]));
+            }
+        }
+    }
+}
+
+
+// Add task to list
+function addToList(val) {
+    let task = document.createElement("li");
+    let checkBox = document.createElement("input");
+    let label = document.createElement("label");
+    task.className = "task";
+    checkBox.type = "checkbox";
+    checkBox.name, checkBox.id = "checkBox";
+    label.for = "checkBox";
+    label.append(val);
+    task.append(checkBox);
+    task.append(label);
+    list.append(task);
+}
+
+
 // Add task
 function addTask() {
     if (input.value != "") {
@@ -45,19 +75,9 @@ function addTask() {
         setCookies("n", n, 1);
         setCookies(`task_${n}`, input.value, 1);
 
-        let task = document.createElement("li");
-        let checkBox = document.createElement("input");
-        let label = document.createElement("label");
-        task.className = "task";
-        checkBox.type = "checkbox";
-        checkBox.name, checkBox.id = "checkBox";
-        label.for = "checkBox";
         audio.volume = 1;
         audio.play();
-        label.append(input.value);
-        task.append(checkBox);
-        task.append(label);
-        list.append(task);
+        addToList(input.value);
         input.value = "";
     }
 }
@@ -85,3 +105,8 @@ input.addEventListener("keypress", (e) => {
 
 // Checkbox event
 list.addEventListener("change", removeTask);
+
+
+// Read cookies and add them to the list
+printCookies()
+
