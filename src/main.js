@@ -38,6 +38,8 @@ function getCookie(cname) {
     return "";
 }
 
+
+// Removes Cookie
 function removeCookie(cname) {
     let date = new Date();
     cname = cname + "=";
@@ -55,7 +57,9 @@ function printCookies() {
         for (let cookie of cookieArray) {
             let task = cookie.trim().split("=");
             if (task[0].startsWith("new_task")) {
-                addToList(getCookie(task[0]));
+                let cvalue = getCookie(task[0]);
+                let i = task[0].split("_").at(2);
+                addToList(cvalue, i);
             }
         }
     }
@@ -63,12 +67,12 @@ function printCookies() {
 
 
 // Add task to list
-function addToList(val) {
+function addToList(val, i) {
     let task = document.createElement("li");
     let checkBox = document.createElement("input");
     let label = document.createElement("label");
     task.className = "task";
-    task.id = `new_task_${n_tasks}`;
+    task.id = `new_task_${i}`;
     checkBox.type = "checkbox";
     checkBox.name, checkBox.id = "checkBox";
     label.for = "checkBox";
@@ -88,7 +92,7 @@ function addTask() {
 
         audio.play();
         
-        addToList(input.value);
+        addToList(input.value, n_tasks);
         input.value = "";
     }
 }
