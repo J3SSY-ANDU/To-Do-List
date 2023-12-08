@@ -6,10 +6,11 @@ const btn = document.getElementById("btn");
 
 // Data
 const audio = new Audio("../data/pop.mp3");
-
+audio.volume = 1;
 
 // Cookie n value
-let n = getCookie("n"); // cookie count
+let n_tasks = getCookie("n_tasks"); // cookie count
+let t_complete = getCookie("t_complete");
 
 
 // Set cookie
@@ -37,6 +38,15 @@ function getCookie(cname) {
     return "";
 }
 
+function removeCookie(cname) {
+    let date = new Date();
+    cname = cname + "=";
+    let cvalue = getCookie(cname) + ";";
+    date.setTime(date.getTime() - (1000));
+    let expires = "expires=" + date.toUTCString();
+    document.cookie = cname + cvalue + expires + ";path=/src; " + "SameSite=None; " + "Secure;";
+}
+
 
 // Print Cookies
 function printCookies() {
@@ -44,7 +54,7 @@ function printCookies() {
         let cookieArray = document.cookie.split(";");
         for (let cookie of cookieArray) {
             let task = cookie.trim().split("=");
-            if (task[0] != "n") {
+            if (task[0].startsWith("new_task")) {
                 addToList(getCookie(task[0]));
             }
         }
@@ -58,6 +68,7 @@ function addToList(val) {
     let checkBox = document.createElement("input");
     let label = document.createElement("label");
     task.className = "task";
+    task.id = `new_task_${n_tasks}`;
     checkBox.type = "checkbox";
     checkBox.name, checkBox.id = "checkBox";
     label.for = "checkBox";
@@ -71,12 +82,12 @@ function addToList(val) {
 // Add task
 function addTask() {
     if (input.value != "") {
-        n++;
-        setCookies("n", n, 1);
-        setCookies(`task_${n}`, input.value, 1);
+        n_tasks++;
+        setCookies("n_tasks", n_tasks, 1);
+        setCookies(`new_task_${n_tasks}`, input.value, 1);
 
-        audio.volume = 1;
         audio.play();
+        
         addToList(input.value);
         input.value = "";
     }
@@ -90,6 +101,11 @@ function removeTask(event) {
         let parent = clickedTask.parentNode;
         let list = parent.parentNode;
         list.removeChild(parent);
+
+        t_complete++;
+        setCookies("t_complete", t_complete, 1);
+        setCookies(`completed_task_${t_complete}`, getCookie(parent.id), 1);
+        removeCookie(parent.id);
     }
 }
 
