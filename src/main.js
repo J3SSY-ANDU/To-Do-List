@@ -20,7 +20,7 @@ function setCookies(cname, cvalue, exdays) {
     let expires = "expires=" + date.toUTCString();
     cname = cname + "=";
     cvalue = cvalue + ";";
-    document.cookie = cname + cvalue + expires + ";path=/src; " + "SameSite=None; " + "Secure;";
+    document.cookie = cname + cvalue + expires + ";path=/; " + "SameSite=None; " + "Secure;";
 }
 
 
@@ -46,7 +46,7 @@ function removeCookie(cname) {
     let cvalue = getCookie(cname) + ";";
     date.setTime(date.getTime() - (1000));
     let expires = "expires=" + date.toUTCString();
-    document.cookie = cname + cvalue + expires + ";path=/src; " + "SameSite=None; " + "Secure;";
+    document.cookie = cname + cvalue + expires + ";path=/; " + "SameSite=None; " + "Secure;";
 }
 
 
