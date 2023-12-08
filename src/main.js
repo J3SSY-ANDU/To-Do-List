@@ -98,8 +98,8 @@ function addTask() {
 }
 
 
-// Remove Task
-function removeTask(event) {
+// Mark completed tasks
+function checkTask(event) {
     const clickedTask = event.target;
     if (clickedTask.tagName === "INPUT") {
         let parent = clickedTask.parentNode;
@@ -109,6 +109,19 @@ function removeTask(event) {
         t_complete++;
         setCookies("t_complete", t_complete, 7);
         setCookies(`completed_task_${t_complete}`, getCookie(parent.id), 7);
+        removeCookie(parent.id);
+    }
+}
+
+function removeTask(event) {
+    const clickedTask = event.target;
+    if (clickedTask.tagName === "LABEL") {
+        let parent = clickedTask.parentNode;
+        let list = parent.parentNode;
+        list.removeChild(parent);
+
+        n_tasks--;
+        setCookies("n_tasks", n_tasks, 7);
         removeCookie(parent.id);
     }
 }
@@ -124,7 +137,11 @@ input.addEventListener("keypress", (e) => {
 
 
 // Checkbox event
-list.addEventListener("change", removeTask);
+list.addEventListener("change", checkTask);
+
+
+// Label event
+list.addEventListener("click", removeTask);
 
 
 // Read cookies and add them to the list
