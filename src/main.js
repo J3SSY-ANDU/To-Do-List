@@ -74,7 +74,7 @@ function addToList(val, i) {
     task.className = "task";
     task.id = `new_task_${i}`;
     checkBox.type = "checkbox";
-    checkBox.name, checkBox.id = "checkBox";
+    checkBox.name, checkBox.className = "checkBox";
     label.for = "checkBox";
     label.append(val);
     task.append(checkBox);
