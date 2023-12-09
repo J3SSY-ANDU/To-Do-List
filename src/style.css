@@ -57,22 +57,23 @@ body {
     display: flex;
 }
 
+.task input {
+    accent-color: #c0f2b0;
+}
+
 .task label {
     border-bottom: 1px #6c5f5b7a solid;
     margin-left: 10px;
     flex: 3;
     border-radius: 3px;
     padding-left: 4px;
+    cursor: pointer;
 }
 
 .task label:hover {
     color: #6c5f5ba2;
     border-bottom: 1px #6c5f5b5c solid;
 }
-
-/* .task input:checked + label {
-    background-color: #c0f2b085;
-} */
 
 .btn {
     width: 80%;
@@ -84,6 +85,7 @@ body {
     border: none;
     border-radius: 5px;
     color: #1f1717ee;
+    cursor: pointer;
 }
 
 .btn:hover {

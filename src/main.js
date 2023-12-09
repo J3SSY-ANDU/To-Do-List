@@ -104,7 +104,18 @@ function checkTask(event) {
     if (clickedTask.tagName === "INPUT") {
         let parent = clickedTask.parentNode;
         let list = parent.parentNode;
-        list.removeChild(parent);
+
+        let label = parent.querySelector("label");
+        let opacity = 1;
+        let interval = setInterval(() => {
+            label.style.backgroundColor = "#c0f2b085";
+            opacity -= 0.1;
+            parent.style.opacity = opacity;
+            if (opacity <= 0) {
+                clearInterval(interval);
+                list.removeChild(parent);
+            }
+        }, 30);
 
         t_complete++;
         setCookies("t_complete", t_complete, 7);
@@ -118,7 +129,18 @@ function removeTask(event) {
     if (clickedTask.tagName === "LABEL") {
         let parent = clickedTask.parentNode;
         let list = parent.parentNode;
-        list.removeChild(parent);
+
+        let opacity = 1;
+        let interval = setInterval(() => {
+            clickedTask.style.backgroundColor = "#FA707060";
+            clickedTask.style.textDecoration = "line-through";
+            opacity -= 0.1;
+            parent.style.opacity = opacity;
+            if (opacity <= 0) {
+                clearInterval(interval);
+                list.removeChild(parent);
+            }
+        }, 30);
 
         n_tasks--;
         setCookies("n_tasks", n_tasks, 7);
