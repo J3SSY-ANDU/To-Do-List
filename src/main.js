@@ -2,6 +2,7 @@
 const input = document.getElementById("new-task");
 const list = document.getElementById("task-list");
 const btn = document.getElementById("btn");
+const icon = document.getElementById("icon");
 
 
 // Data
@@ -51,15 +52,17 @@ function removeCookie(cname) {
 
 
 // Print Cookies
-function printCookies() {
+function printCookies(str) {
     if (document.cookie.length != 0) {
         let cookieArray = document.cookie.split(";");
         for (let cookie of cookieArray) {
             let task = cookie.trim().split("=");
-            if (task[0].startsWith("new_task")) {
+            if (task[0].startsWith(str)) {
                 let cvalue = getCookie(task[0]);
-                let i = task[0].split("_").at(2);
-                addToList(cvalue, i);
+                let taskNameArray = task[0].split("_");
+                let i = taskNameArray.at(2);
+                let cname = taskNameArray[0] + "_" + taskNameArray[1] + "_";
+                addToList(cname, cvalue, i);
             }
         }
     }
@@ -67,12 +70,12 @@ function printCookies() {
 
 
 // Add task to list
-function addToList(val, i) {
+function addToList(name, val, i) {
     let task = document.createElement("li");
     let checkBox = document.createElement("input");
     let label = document.createElement("label");
     task.className = "task";
-    task.id = `new_task_${i}`;
+    task.id = name + i;
     checkBox.type = "checkbox";
     checkBox.name, checkBox.className = "checkBox";
     label.for = "checkBox";
@@ -87,12 +90,13 @@ function addToList(val, i) {
 function addTask() {
     if (input.value != "") {
         n_tasks++;
+        let cname = "new_task_";
         setCookies("n_tasks", n_tasks, 7);
-        setCookies(`new_task_${n_tasks}`, input.value, 7);
+        setCookies(cname + n_tasks, input.value, 7);
 
         audio.play();
         
-        addToList(input.value, n_tasks);
+        addToList(cname, input.value, n_tasks);
         input.value = "";
     }
 }
@@ -166,6 +170,25 @@ list.addEventListener("change", checkTask);
 list.addEventListener("click", removeTask);
 
 
+let iconChange = true;
+icon.addEventListener("click", () => {
+    if (iconChange) {
+        iconChange = !iconChange;
+        icon.className = "fa-regular fa-eye fa-sm";
+        printCookies("completed");
+    }
+    else {
+        iconChange = !iconChange;
+        icon.className = "fa-regular fa-eye-slash fa-sm";
+        for (let child of list.children) {
+            if (child.id.startsWith("completed")) {
+                list.removeChild(child);
+            }
+        }
+    }
+})
+
+
 // Read cookies and add them to the list
-printCookies()
+printCookies("new_task");
 

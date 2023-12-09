@@ -9,8 +9,17 @@ body {
     margin: 200px;
 }
 
+span {
+    display: block;
+    text-align: right;
+    margin-top: 5px;
+}
+
+span i {
+    margin-right: 10px;
+}
+
 .task-title {
-    margin-top: 20px;
     color: #6C5F5B;
 }
 
