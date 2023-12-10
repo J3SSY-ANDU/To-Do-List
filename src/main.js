@@ -107,6 +107,7 @@ function checkTask(event) {
 
         let label = parent.querySelector("label");
         let opacity = 1;
+        parent.style.animation = "width 0.3s ease-out forwards";
         let interval = setInterval(() => {
             label.style.backgroundColor = "#c0f2b085";
             opacity -= 0.1;
@@ -131,6 +132,7 @@ function removeTask(event) {
         let list = parent.parentNode;
 
         let opacity = 1;
+        parent.style.animation = "height 0.3s ease-out forwards";
         let interval = setInterval(() => {
             clickedTask.style.backgroundColor = "#FA707060";
             clickedTask.style.textDecoration = "line-through";
