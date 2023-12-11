@@ -68,17 +68,32 @@ function printCookies() {
 
 // Add task to list
 function addToList(val, i) {
+    let date = new Date();
+    date.setTime(date.getTime() + (7*24*60*60*1000));
     let task = document.createElement("li");
-    let checkBox = document.createElement("input");
+    let divTask = document.createElement("div");
+    let checkbox = document.createElement("input");
     let label = document.createElement("label");
+    let divInfo = document.createElement("div");
+    let p = document.createElement("p");
+    let dateStr = `12/10/2023`;
+
     task.className = "task";
     task.id = `new_task_${i}`;
-    checkBox.type = "checkbox";
-    checkBox.name, checkBox.className = "checkBox";
-    label.for = "checkBox";
+    checkbox.type = "checkbox";
+    checkbox.name, checkbox.className = "checkbox";
+    label.for = "checkbox";
+    p.className = "date";
+    divTask.className = "divTask";
+    divInfo.className = "divInfo";
+
+    p.append(dateStr);
     label.append(val);
-    task.append(checkBox);
-    task.append(label);
+    divTask.append(checkbox);
+    divInfo.append(label);
+    divInfo.append(p);
+    divTask.append(divInfo);
+    task.append(divTask);
     list.append(task);
 }
 
@@ -102,51 +117,77 @@ function addTask() {
 function checkTask(event) {
     const clickedTask = event.target;
     if (clickedTask.tagName === "INPUT") {
-        let parent = clickedTask.parentNode;
-        let list = parent.parentNode;
+        let divTask = clickedTask.parentNode;
+        let task = divTask.parentNode;
+        let list = task.parentNode;
 
-        let label = parent.querySelector("label");
+        let divInfo = divTask.querySelector("div");
         let opacity = 1;
-        parent.style.animation = "width 0.3s ease-out forwards";
+        task.style.animation = "width 0.46s ease-out forwards";
         let interval = setInterval(() => {
-            label.style.backgroundColor = "#c0f2b085";
+            divInfo.style.backgroundColor = "#c0f2b085";
             opacity -= 0.1;
-            parent.style.opacity = opacity;
+            task.style.opacity = opacity;
             if (opacity <= 0) {
                 clearInterval(interval);
-                list.removeChild(parent);
+                list.removeChild(task);
             }
-        }, 30);
+        }, 40);
 
         t_complete++;
         setCookies("t_complete", t_complete, 7);
-        setCookies(`completed_task_${t_complete}`, getCookie(parent.id), 7);
-        removeCookie(parent.id);
+        setCookies(`completed_task_${t_complete}`, getCookie(task.id), 7);
+        removeCookie(task.id);
     }
 }
 
 function removeTask(event) {
     const clickedTask = event.target;
     if (clickedTask.tagName === "LABEL") {
-        let parent = clickedTask.parentNode;
-        let list = parent.parentNode;
+        let divInfo = clickedTask.parentNode;
+        let divTask = divInfo.parentNode;
+        let task = divTask.parentNode;
+        let list = task.parentNode;
 
         let opacity = 1;
-        parent.style.animation = "height 0.3s ease-out forwards";
+        divTask.style.animation = "height 0.46s ease-out forwards";
+        let interval = setInterval(() => {
+            divInfo.style.backgroundColor = "#FA707060";
+            divInfo.style.textDecoration = "line-through";
+            opacity -= 0.1;
+            divTask.style.opacity = opacity;
+            if (opacity <= 0) {
+                clearInterval(interval);
+                list.removeChild(task);
+            }
+        }, 40);
+
+        n_tasks--;
+        setCookies("n_tasks", n_tasks, 7);
+        removeCookie(task.id);
+    }
+
+    if (clickedTask.className === "divInfo") {
+        let divTask = clickedTask.parentNode;
+        let task = divTask.parentNode;
+        let list = task.parentNode;
+
+        let opacity = 1;
+        divTask.style.animation = "height 0.46s ease-out forwards";
         let interval = setInterval(() => {
             clickedTask.style.backgroundColor = "#FA707060";
             clickedTask.style.textDecoration = "line-through";
             opacity -= 0.1;
-            parent.style.opacity = opacity;
+            divTask.style.opacity = opacity;
             if (opacity <= 0) {
                 clearInterval(interval);
-                list.removeChild(parent);
+                list.removeChild(task);
             }
-        }, 30);
+        }, 40);
 
         n_tasks--;
         setCookies("n_tasks", n_tasks, 7);
-        removeCookie(parent.id);
+        removeCookie(task.id);
     }
 }
 

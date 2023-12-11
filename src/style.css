@@ -46,16 +46,14 @@ body {
 .task-list {
     list-style: square;
     text-align: left;
-    font-size: medium;
 }
 
 .task {
     text-transform: capitalize;
     margin: 0 10%;
     margin-bottom: 20px;
-    height: 25px;
     overflow: hidden;
-    display: flex;
+    font-size: medium;
 }
 
 @keyframes height {
@@ -76,22 +74,37 @@ body {
     }
 }
 
-.task input {
-    accent-color: #c0f2b0;
+.divTask {
+    display: flex;
 }
 
-.task label {
-    border-bottom: 1px #6c5f5b7a solid;
-    margin-left: 10px;
-    flex: 3;
-    border-radius: 3px;
-    padding-left: 4px;
+.divTask input {
+    accent-color: #c0f2b0;
     cursor: pointer;
 }
 
-.task label:hover {
+.divInfo {
+    border-radius: 3px;
+    margin-left: 10px;
+    padding-left: 4px;
+    flex: 3;
+    cursor: pointer;
+}
+
+.divInfo label {
+    cursor: pointer;
+}
+
+.divInfo:hover label {
     color: #6c5f5ba2;
-    border-bottom: 1px #6c5f5b5c solid;
+    text-decoration: line-through;
+}
+
+.divInfo p {
+    color: #6c5f5ba2;
+    border-bottom: 1px #6c5f5b7a solid;
+    font-size: x-small;
+    cursor: pointer;
 }
 
 .btn {
