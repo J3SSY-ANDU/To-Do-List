@@ -41,7 +41,7 @@ span i {
     padding: 0 5px;
     height: 35px;
     width: 80%;
-    font-size: small;
+    font-size: medium;
     color: #191919;
 }
 
@@ -63,11 +63,7 @@ span i {
     margin: 0 10%;
     margin-bottom: 20px;
     overflow: hidden;
-    font-size: medium;
-}
-
-.task-completed {
-    text-decoration: line-through;
+    font-size: small;
 }
 
 @keyframes height {
@@ -112,7 +108,7 @@ span i {
 }
 
 .divInfo-completed label {
-    text-decoration: line-through;
+    color: #6c5f5ba2;
 }
 
 .divInfo:hover label {
@@ -120,10 +116,15 @@ span i {
     text-decoration: line-through;
 }
 
+.divInfo-completed:hover label {
+    text-decoration: none;
+    cursor: initial;
+}
+
 .divInfo p {
     color: #6c5f5ba2;
     border-bottom: 1px #6c5f5b7a solid;
-    font-size: x-small;
+    font-size: xx-small;
     cursor: pointer;
 }
 

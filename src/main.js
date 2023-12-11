@@ -125,7 +125,7 @@ function addTask() {
 // Mark completed tasks
 function checkTask(event) {
     const clickedTask = event.target;
-    if (clickedTask.tagName === "INPUT") {
+    if (clickedTask.tagName === "INPUT" && clickedTask.parentNode.parentNode.id.startsWith("new_task")) {
         let divTask = clickedTask.parentNode;
         let task = divTask.parentNode;
         let list = task.parentNode;
@@ -154,7 +154,7 @@ function checkTask(event) {
 
 function removeTask(event) {
     const clickedTask = event.target;
-    if (clickedTask.tagName === "LABEL") {
+    if (clickedTask.tagName === "LABEL" && clickedTask.parentNode.parentNode.parentNode.id.startsWith("new_task")) {
         let divInfo = clickedTask.parentNode;
         let divTask = divInfo.parentNode;
         let task = divTask.parentNode;
@@ -180,7 +180,7 @@ function removeTask(event) {
         }
     }
 
-    if (clickedTask.className === "divInfo") {
+    if (clickedTask.className === "divInfo" && clickedTask.parentNode.parentNode.id.startsWith("new_task")) {
         let divTask = clickedTask.parentNode;
         let task = divTask.parentNode;
         let list = task.parentNode;
