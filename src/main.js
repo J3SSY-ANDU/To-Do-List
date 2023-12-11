@@ -89,7 +89,10 @@ function addToList(name, val, i) {
     label.for = "checkbox";
     p.className = "date";
     divTask.className = "divTask";
-    if (name.startsWith("completed")) divInfo.className = "divInfo divInfo-completed";
+    if (name.startsWith("completed")) {
+        divInfo.className = "divInfo divInfo-completed";
+        checkbox.checked = true;
+    }
     else divInfo.className = "divInfo";
 
     p.append(expires);
