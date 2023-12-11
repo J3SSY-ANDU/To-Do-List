@@ -71,17 +71,33 @@ function printCookies(str) {
 
 // Add task to list
 function addToList(name, val, i) {
+    let date = new Date();
+    date.setTime(date.getTime() + (7*24*60*60*1000));
     let task = document.createElement("li");
-    let checkBox = document.createElement("input");
+    let divTask = document.createElement("div");
+    let checkbox = document.createElement("input");
     let label = document.createElement("label");
+    let divInfo = document.createElement("div");
+    let p = document.createElement("p");
+    let expires = date.toLocaleDateString() + "\t|\t" + date.toLocaleTimeString();
+    console.log(expires);
+
     task.className = "task";
     task.id = name + i;
-    checkBox.type = "checkbox";
-    checkBox.name, checkBox.className = "checkBox";
-    label.for = "checkBox";
+    checkbox.type = "checkbox";
+    checkbox.name, checkbox.className = "checkbox";
+    label.for = "checkbox";
+    p.className = "date";
+    divTask.className = "divTask";
+    divInfo.className = "divInfo";
+
+    p.append(expires);
     label.append(val);
-    task.append(checkBox);
-    task.append(label);
+    divTask.append(checkbox);
+    divInfo.append(label);
+    divInfo.append(p);
+    divTask.append(divInfo);
+    task.append(divTask);
     list.append(task);
 }
 
@@ -106,49 +122,77 @@ function addTask() {
 function checkTask(event) {
     const clickedTask = event.target;
     if (clickedTask.tagName === "INPUT") {
-        let parent = clickedTask.parentNode;
-        let list = parent.parentNode;
+        let divTask = clickedTask.parentNode;
+        let task = divTask.parentNode;
+        let list = task.parentNode;
 
-        let label = parent.querySelector("label");
+        let divInfo = divTask.querySelector("div");
         let opacity = 1;
+        task.style.animation = "width 0.33s ease-out forwards";
         let interval = setInterval(() => {
-            label.style.backgroundColor = "#c0f2b085";
+            divInfo.style.backgroundColor = "#c0f2b085";
             opacity -= 0.1;
-            parent.style.opacity = opacity;
+            task.style.opacity = opacity;
             if (opacity <= 0) {
                 clearInterval(interval);
-                list.removeChild(parent);
+                list.removeChild(task);
             }
         }, 30);
 
         t_complete++;
         setCookies("t_complete", t_complete, 7);
-        setCookies(`completed_task_${t_complete}`, getCookie(parent.id), 7);
-        removeCookie(parent.id);
+        setCookies(`completed_task_${t_complete}`, getCookie(task.id), 7);
+        removeCookie(task.id);
     }
 }
 
 function removeTask(event) {
     const clickedTask = event.target;
     if (clickedTask.tagName === "LABEL") {
-        let parent = clickedTask.parentNode;
-        let list = parent.parentNode;
+        let divInfo = clickedTask.parentNode;
+        let divTask = divInfo.parentNode;
+        let task = divTask.parentNode;
+        let list = task.parentNode;
 
         let opacity = 1;
+        divTask.style.animation = "height 0.33s ease-out forwards";
         let interval = setInterval(() => {
-            clickedTask.style.backgroundColor = "#FA707060";
-            clickedTask.style.textDecoration = "line-through";
+            divInfo.style.backgroundColor = "#FA707060";
+            divInfo.style.textDecoration = "line-through";
             opacity -= 0.1;
-            parent.style.opacity = opacity;
+            divTask.style.opacity = opacity;
             if (opacity <= 0) {
                 clearInterval(interval);
-                list.removeChild(parent);
+                list.removeChild(task);
             }
         }, 30);
 
         n_tasks--;
         setCookies("n_tasks", n_tasks, 7);
-        removeCookie(parent.id);
+        removeCookie(task.id);
+    }
+
+    if (clickedTask.className === "divInfo") {
+        let divTask = clickedTask.parentNode;
+        let task = divTask.parentNode;
+        let list = task.parentNode;
+
+        let opacity = 1;
+        divTask.style.animation = "height 0.33s ease-out forwards";
+        let interval = setInterval(() => {
+            clickedTask.style.backgroundColor = "#FA707060";
+            clickedTask.style.textDecoration = "line-through";
+            opacity -= 0.1;
+            divTask.style.opacity = opacity;
+            if (opacity <= 0) {
+                clearInterval(interval);
+                list.removeChild(task);
+            }
+        }, 30);
+
+        n_tasks--;
+        setCookies("n_tasks", n_tasks, 7);
+        removeCookie(task.id);
     }
 }
 

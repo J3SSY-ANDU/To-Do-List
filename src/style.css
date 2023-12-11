@@ -55,7 +55,6 @@ span i {
 .task-list {
     list-style: square;
     text-align: left;
-    font-size: medium;
 }
 
 .task {
@@ -63,25 +62,59 @@ span i {
     margin: 0 10%;
     margin-bottom: 20px;
     overflow: hidden;
+    font-size: medium;
+}
+
+@keyframes height {
+    0% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0);
+    }
+}
+
+@keyframes width {
+    0% {
+        width: 100%;
+    }
+    100% {
+        white-space: nowrap;
+        width: 0;
+    }
+}
+
+.divTask {
     display: flex;
 }
 
-.task input {
+.divTask input {
     accent-color: #c0f2b0;
-}
-
-.task label {
-    border-bottom: 1px #6c5f5b7a solid;
-    margin-left: 10px;
-    flex: 3;
-    border-radius: 3px;
-    padding-left: 4px;
     cursor: pointer;
 }
 
-.task label:hover {
+.divInfo {
+    border-radius: 3px;
+    margin-left: 10px;
+    padding-left: 4px;
+    flex: 3;
+    cursor: pointer;
+}
+
+.divInfo label {
+    cursor: pointer;
+}
+
+.divInfo:hover label {
     color: #6c5f5ba2;
-    border-bottom: 1px #6c5f5b5c solid;
+    text-decoration: line-through;
+}
+
+.divInfo p {
+    color: #6c5f5ba2;
+    border-bottom: 1px #6c5f5b7a solid;
+    font-size: x-small;
+    cursor: pointer;
 }
 
 .btn {
