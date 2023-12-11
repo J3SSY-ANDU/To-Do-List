@@ -124,7 +124,7 @@ function checkTask(event) {
 
         let divInfo = divTask.querySelector("div");
         let opacity = 1;
-        task.style.animation = "width 0.46s ease-out forwards";
+        task.style.animation = "width 0.33s ease-out forwards";
         let interval = setInterval(() => {
             divInfo.style.backgroundColor = "#c0f2b085";
             opacity -= 0.1;
@@ -133,7 +133,7 @@ function checkTask(event) {
                 clearInterval(interval);
                 list.removeChild(task);
             }
-        }, 40);
+        }, 30);
 
         t_complete++;
         setCookies("t_complete", t_complete, 7);
@@ -151,7 +151,7 @@ function removeTask(event) {
         let list = task.parentNode;
 
         let opacity = 1;
-        divTask.style.animation = "height 0.46s ease-out forwards";
+        divTask.style.animation = "height 0.33s ease-out forwards";
         let interval = setInterval(() => {
             divInfo.style.backgroundColor = "#FA707060";
             divInfo.style.textDecoration = "line-through";
@@ -161,7 +161,7 @@ function removeTask(event) {
                 clearInterval(interval);
                 list.removeChild(task);
             }
-        }, 40);
+        }, 30);
 
         n_tasks--;
         setCookies("n_tasks", n_tasks, 7);
@@ -174,7 +174,7 @@ function removeTask(event) {
         let list = task.parentNode;
 
         let opacity = 1;
-        divTask.style.animation = "height 0.46s ease-out forwards";
+        divTask.style.animation = "height 0.33s ease-out forwards";
         let interval = setInterval(() => {
             clickedTask.style.backgroundColor = "#FA707060";
             clickedTask.style.textDecoration = "line-through";
@@ -184,7 +184,7 @@ function removeTask(event) {
                 clearInterval(interval);
                 list.removeChild(task);
             }
-        }, 40);
+        }, 30);
 
         n_tasks--;
         setCookies("n_tasks", n_tasks, 7);
