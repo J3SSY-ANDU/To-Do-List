@@ -65,6 +65,10 @@ span i {
     font-size: medium;
 }
 
+.task-completed {
+    text-decoration: line-through;
+}
+
 @keyframes height {
     0% {
         transform: scaleY(1);
@@ -103,6 +107,11 @@ span i {
 
 .divInfo label {
     cursor: pointer;
+}
+
+.divInfo-completed label {
+    text-decoration: line-through;
+    
 }
 
 .divInfo:hover label {

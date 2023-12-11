@@ -89,7 +89,8 @@ function addToList(name, val, i) {
     label.for = "checkbox";
     p.className = "date";
     divTask.className = "divTask";
-    divInfo.className = "divInfo";
+    if (name.startsWith("completed")) divInfo.className = "divInfo divInfo-completed";
+    else divInfo.className = "divInfo";
 
     p.append(expires);
     label.append(val);
@@ -139,10 +140,12 @@ function checkTask(event) {
             }
         }, 30);
 
-        t_complete++;
-        setCookies("t_complete", t_complete, 7);
-        setCookies(`completed_task_${t_complete}`, getCookie(task.id), 7);
-        removeCookie(task.id);
+        if (task.id.startsWith("new_task")) {
+            t_complete++;
+            setCookies("t_complete", t_complete, 7);
+            setCookies(`completed_task_${t_complete}`, getCookie(task.id), 7);
+            removeCookie(task.id);
+        }
     }
 }
 
@@ -167,9 +170,11 @@ function removeTask(event) {
             }
         }, 30);
 
-        n_tasks--;
-        setCookies("n_tasks", n_tasks, 7);
-        removeCookie(task.id);
+        if (task.id.startsWith("new_task")) {
+            n_tasks--;
+            setCookies("n_tasks", n_tasks, 7);
+            removeCookie(task.id);
+        }
     }
 
     if (clickedTask.className === "divInfo") {
@@ -190,9 +195,11 @@ function removeTask(event) {
             }
         }, 30);
 
-        n_tasks--;
-        setCookies("n_tasks", n_tasks, 7);
-        removeCookie(task.id);
+        if (task.id.startsWith("new_task")) {
+            n_tasks--;
+            setCookies("n_tasks", n_tasks, 7);
+            removeCookie(task.id);
+        }
     }
 }
 
@@ -224,7 +231,8 @@ icon.addEventListener("click", () => {
     else {
         iconChange = !iconChange;
         icon.className = "fa-regular fa-eye-slash fa-sm";
-        for (let child of list.children) {
+        let children = Array.from(list.children);
+        for (let child of children) {
             if (child.id.startsWith("completed")) {
                 list.removeChild(child);
             }
