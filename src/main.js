@@ -76,7 +76,8 @@ function addToList(val, i) {
     let label = document.createElement("label");
     let divInfo = document.createElement("div");
     let p = document.createElement("p");
-    let dateStr = `12/10/2023`;
+    let expires = date.toLocaleDateString() + "\t|\t" + date.toLocaleTimeString();
+    console.log(expires);
 
     task.className = "task";
     task.id = `new_task_${i}`;
@@ -87,7 +88,7 @@ function addToList(val, i) {
     divTask.className = "divTask";
     divInfo.className = "divInfo";
 
-    p.append(dateStr);
+    p.append(expires);
     label.append(val);
     divTask.append(checkbox);
     divInfo.append(label);
