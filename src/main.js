@@ -74,6 +74,7 @@ function addToList(name, val, i) {
     let date = new Date();
     date.setTime(date.getTime() + (7*24*60*60*1000));
     let task = document.createElement("li");
+    let divInput = document.createElement("div");
     let divTask = document.createElement("div");
     let checkbox = document.createElement("input");
     let label = document.createElement("label");
@@ -90,15 +91,18 @@ function addToList(name, val, i) {
     p.className = "date";
     divTask.className = "divTask";
     if (name.startsWith("completed")) {
-        divInfo.className = "divInfo divInfo-completed";
+        divInfo.className = "divInfo divInfo-completed"; divInfo.id = "divInfo";
         checkbox.checked = true;
         checkbox.disabled = true;
     }
     else divInfo.className = "divInfo";
 
-    p.append(expires);
     label.append(val);
-    divTask.append(checkbox);
+    label.textContent = label.textContent.at(0).toUpperCase() + label.textContent.slice(1);
+
+    p.append(expires);
+    divInput.append(checkbox);
+    divTask.append(divInput);
     divInfo.append(label);
     divInfo.append(p);
     divTask.append(divInfo);
@@ -126,12 +130,13 @@ function addTask() {
 // Mark completed tasks
 function checkTask(event) {
     const clickedTask = event.target;
-    if (clickedTask.tagName === "INPUT" && clickedTask.parentNode.parentNode.id.startsWith("new_task")) {
-        let divTask = clickedTask.parentNode;
+    if (clickedTask.tagName === "INPUT" && clickedTask.parentNode.parentNode.parentNode.id.startsWith("new_task")) {
+        let divInput = clickedTask.parentNode;
+        let divTask = divInput.parentNode;
         let task = divTask.parentNode;
         let list = task.parentNode;
 
-        let divInfo = divTask.querySelector("div");
+        let divInfo = divTask.querySelector("div:nth-child(2)");
         let opacity = 1;
         task.style.animation = "width 0.33s ease-out forwards";
         let interval = setInterval(() => {

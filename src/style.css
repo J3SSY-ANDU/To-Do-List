@@ -31,7 +31,7 @@ span i {
     box-shadow: 0px 2px 4px 0px #6c5f5b85;
     border-radius: 4px;
     display: inline-block;
-    width: 350px;
+    width: 400px;
     text-align: center;
     color: #6C5F5B;
 }
@@ -45,7 +45,7 @@ span i {
     padding: 0 5px;
     height: 35px;
     width: 80%;
-    font-size: small;
+    font-size: medium;
     color: #191919;
 }
 
@@ -63,11 +63,11 @@ span i {
 }
 
 .task {
-    text-transform: capitalize;
     margin: 0 10%;
     margin-bottom: 20px;
-    overflow: hidden;
-    font-size: small;
+    font-size: medium;
+    list-style: none;
+    box-sizing: border-box;
 }
 
 @keyframes height {
@@ -85,12 +85,14 @@ span i {
     }
     100% {
         white-space: nowrap;
+        overflow: hidden;
         width: 0;
     }
 }
 
 .divTask {
     display: flex;
+    align-items: baseline;
 }
 
 .divTask input {
@@ -113,6 +115,8 @@ span i {
 .divInfo label {
     cursor: pointer;
     color: #191919;
+    word-break: break-word;
+    text-wrap: balance;
 }
 
 .divInfo-completed label {
@@ -124,7 +128,7 @@ span i {
     text-decoration: line-through;
 }
 
-.divInfo-completed:hover label {
+.divInfo-completed:hover, .divInfo-completed:hover label {
     text-decoration: none;
     cursor: initial;
 }
@@ -132,7 +136,7 @@ span i {
 .divInfo p {
     color: #6c5f5ba2;
     border-bottom: 1px #6c5f5b7a solid;
-    font-size: xx-small;
+    font-size: x-small;
     cursor: initial;
 }
 
