@@ -92,6 +92,7 @@ function addToList(name, val, i) {
     if (name.startsWith("completed")) {
         divInfo.className = "divInfo divInfo-completed";
         checkbox.checked = true;
+        checkbox.disabled = true;
     }
     else divInfo.className = "divInfo";
 

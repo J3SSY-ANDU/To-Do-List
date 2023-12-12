@@ -19,6 +19,10 @@ span i {
     margin-right: 10px;
 }
 
+.fa-eye-slash {
+    color: #6c5f5bab;
+}
+
 .task-title {
     color: #6C5F5B;
 }
@@ -41,7 +45,7 @@ span i {
     padding: 0 5px;
     height: 35px;
     width: 80%;
-    font-size: medium;
+    font-size: small;
     color: #191919;
 }
 
@@ -94,6 +98,10 @@ span i {
     cursor: pointer;
 }
 
+.divTask input:disabled, .divTask input:disabled + .divInfo, .divTask input:disabled + .divInfo p {
+    cursor: initial;
+}
+
 .divInfo {
     border-radius: 3px;
     margin-left: 10px;
@@ -125,7 +133,7 @@ span i {
     color: #6c5f5ba2;
     border-bottom: 1px #6c5f5b7a solid;
     font-size: xx-small;
-    cursor: pointer;
+    cursor: initial;
 }
 
 .btn {
