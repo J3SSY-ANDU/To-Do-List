@@ -85,7 +85,7 @@ function addToList(name, val, i) {
 
     task.className = "task";
     task.id = name + i;
-    checkbox.type = "checkbox";
+    checkbox.type = "checkbox"; checkbox.title = "Marks task as completed";
     checkbox.name, checkbox.className = "checkbox";
     label.for = "checkbox";
     p.className = "date";
@@ -235,11 +235,13 @@ icon.addEventListener("click", () => {
     if (iconChange) {
         iconChange = !iconChange;
         icon.className = "fa-regular fa-eye fa-sm";
+        icon.title = "Visible Mode";
         printCookies("completed");
     }
     else {
         iconChange = !iconChange;
         icon.className = "fa-regular fa-eye-slash fa-sm";
+        icon.title = "Hide Mode";
         let children = Array.from(list.children);
         for (let child of children) {
             if (child.id.startsWith("completed")) {
