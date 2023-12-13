@@ -6,7 +6,7 @@
 
 body {
     text-align: center;
-    margin: 200px;
+    margin: 10px;
 }
 
 span {
@@ -68,6 +68,7 @@ span i {
     font-size: medium;
     list-style: none;
     box-sizing: border-box;
+    transition: all ease 0.2s;
 }
 
 @keyframes height {
@@ -117,6 +118,7 @@ span i {
     color: #191919;
     word-break: break-word;
     text-wrap: balance;
+    transition: all ease 0.3s;
 }
 
 .divInfo-completed label {
@@ -124,13 +126,26 @@ span i {
 }
 
 .divInfo:hover label {
-    color: #6c5f5ba2;
-    text-decoration: line-through;
+    color: #19191981;
 }
 
 .divInfo-completed:hover, .divInfo-completed:hover label {
     text-decoration: none;
     cursor: initial;
+}
+
+.divInfo label:focus {
+    color: #191919;
+    border: none;
+    outline: none;
+}
+
+.divInfo label::selection {
+    background-color: #BFCAD6;
+    color: #191919;
+}
+
+.divInfo label::selection .divInfo:hover {
 }
 
 .divInfo p {
@@ -151,9 +166,10 @@ span i {
     border-radius: 5px;
     color: #1f1717ee;
     cursor: pointer;
+    transition: all ease 0.3s;
 }
 
 .btn:hover {
-    background-color: #bfcad6ec;
+    background-color: #bfcad6ca;
     color: black;
 }

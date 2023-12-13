@@ -126,6 +126,36 @@ function addTask() {
     }
 }
 
+let click = true;
+function editTask(event) {
+    let clickedTask = event.target;
+    if (clickedTask.tagName == "LABEL" && clickedTask.parentNode.parentNode.parentNode.id.startsWith("new_task")) {
+        if (click) {
+            let range = document.createRange();
+            range.selectNodeContents(clickedTask);
+            let selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            click = false;
+        }
+        clickedTask.contentEditable = true;
+        clickedTask.focus();
+        
+        clickedTask.addEventListener("blur", () => {
+            clickedTask.contentEditable = false;
+            click = true;
+        })
+        clickedTask.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && clickedTask.textContent != "") {
+                e.preventDefault();
+                clickedTask.contentEditable = false;
+                clickedTask.blur();
+                click = true;
+            }
+        });
+    }
+}
+
 
 // Mark completed tasks
 function checkTask(event) {
@@ -160,31 +190,31 @@ function checkTask(event) {
 
 function removeTask(event) {
     const clickedTask = event.target;
-    if (clickedTask.tagName === "LABEL" && clickedTask.parentNode.parentNode.parentNode.id.startsWith("new_task")) {
-        let divInfo = clickedTask.parentNode;
-        let divTask = divInfo.parentNode;
-        let task = divTask.parentNode;
-        let list = task.parentNode;
+    // if (clickedTask.tagName === "LABEL" && clickedTask.parentNode.parentNode.parentNode.id.startsWith("new_task")) {
+    //     let divInfo = clickedTask.parentNode;
+    //     let divTask = divInfo.parentNode;
+    //     let task = divTask.parentNode;
+    //     let list = task.parentNode;
 
-        let opacity = 1;
-        divTask.style.animation = "height 0.33s ease-out forwards";
-        let interval = setInterval(() => {
-            divInfo.style.backgroundColor = "#FA707060";
-            divInfo.style.textDecoration = "line-through";
-            opacity -= 0.1;
-            divTask.style.opacity = opacity;
-            if (opacity <= 0) {
-                clearInterval(interval);
-                list.removeChild(task);
-            }
-        }, 30);
+    //     let opacity = 1;
+    //     divTask.style.animation = "height 0.33s ease-out forwards";
+    //     let interval = setInterval(() => {
+    //         divInfo.style.backgroundColor = "#FA707060";
+    //         divInfo.style.textDecoration = "line-through";
+    //         opacity -= 0.1;
+    //         divTask.style.opacity = opacity;
+    //         if (opacity <= 0) {
+    //             clearInterval(interval);
+    //             list.removeChild(task);
+    //         }
+    //     }, 30);
 
-        if (task.id.startsWith("new_task")) {
-            n_tasks--;
-            setCookies("n_tasks", n_tasks, 7);
-            removeCookie(task.id);
-        }
-    }
+    //     if (task.id.startsWith("new_task")) {
+    //         n_tasks--;
+    //         setCookies("n_tasks", n_tasks, 7);
+    //         removeCookie(task.id);
+    //     }
+    // }
 
     if (clickedTask.className === "divInfo" && clickedTask.parentNode.parentNode.id.startsWith("new_task")) {
         let divTask = clickedTask.parentNode;
@@ -250,6 +280,8 @@ icon.addEventListener("click", () => {
         }
     }
 })
+
+list.addEventListener("click", editTask);
 
 
 // Read cookies and add them to the list
