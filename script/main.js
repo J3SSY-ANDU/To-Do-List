@@ -5,7 +5,7 @@ const btn = document.getElementById("btn");
 const eyeIcon = document.getElementById("eyeIcon");
 
 // Data
-const audio = new Audio("../data/pop.mp3");
+const audio = new Audio("data/pop.mp3");
 audio.volume = 1;
 
 // Cookie n value
