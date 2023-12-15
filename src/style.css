@@ -5,6 +5,7 @@
 }
 
 body {
+    background-color: #c0f2b098;
     margin: 10px;
 }
 
@@ -33,6 +34,7 @@ span i {
     width: 400px;
     text-align: center;
     color: #6C5F5B;
+    background-color: #fff;
 }
 
 #new-task {
