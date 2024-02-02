@@ -2,8 +2,7 @@
 const input = document.getElementById("new-task");
 const list = document.getElementById("task-list");
 const btn = document.getElementById("btn");
-const icon = document.getElementById("icon");
-
+const eyeIcon = document.getElementById("eyeIcon");
 
 // Data
 const audio = new Audio("../data/pop.mp3");
@@ -79,6 +78,10 @@ function addToList(name, val, i) {
     let checkbox = document.createElement("input");
     let label = document.createElement("label");
     let divInfo = document.createElement("div");
+    let div_3 = document.createElement("div");
+    let span = document.createElement("span");
+    let icon = document.createElement("i");
+
     let p = document.createElement("p");
     let expires = date.toLocaleDateString() + "\t|\t" + date.toLocaleTimeString();
     console.log(expires);
@@ -88,23 +91,31 @@ function addToList(name, val, i) {
     checkbox.type = "checkbox"; checkbox.title = "Marks task as completed";
     checkbox.name, checkbox.className = "checkbox";
     label.for = "checkbox";
+    div_3.className = "div_3";
     p.className = "date";
     divTask.className = "divTask";
     if (name.startsWith("completed")) {
         divInfo.className = "divInfo divInfo-completed"; divInfo.id = "divInfo";
+        icon.className = "fa-solid fa-trash-can-arrow-up"; span.title = 'Move to "New Tasks"';
         checkbox.checked = true;
         checkbox.disabled = true;
+    } else {
+        icon.className = "fa-regular fa-trash-can"; span.title = "Removes task";
+        divInfo.className = "divInfo"; 
     }
-    else divInfo.className = "divInfo";
 
     label.append(val);
-    label.textContent = label.textContent.at(0).toUpperCase() + label.textContent.slice(1);
+    console.log(val);
+    label.textContent = val.charAt(0).toUpperCase() + val.slice(1);
 
     p.append(expires);
     divInput.append(checkbox);
     divTask.append(divInput);
     divInfo.append(label);
-    divInfo.append(p);
+    span.append(icon);
+    div_3.append(p);
+    div_3.append(span);
+    divInfo.append(div_3);
     divTask.append(divInfo);
     task.append(divTask);
     list.append(task);
@@ -129,7 +140,10 @@ function addTask() {
 let click = true;
 function editTask(event) {
     let clickedTask = event.target;
-    if (clickedTask.tagName == "LABEL" && clickedTask.parentNode.parentNode.parentNode.id.startsWith("new_task")) {
+    let divInfo = clickedTask.parentNode;
+    let divTask = divInfo.parentNode;
+    let task = divTask.parentNode;
+    if (clickedTask.tagName == "LABEL" && task.id.startsWith("new_task")) {
         if (click) {
             let range = document.createRange();
             range.selectNodeContents(clickedTask);
@@ -144,6 +158,7 @@ function editTask(event) {
         clickedTask.addEventListener("blur", () => {
             clickedTask.contentEditable = false;
             click = true;
+            setCookies(task.id, clickedTask.textContent, 7);
         })
         clickedTask.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && clickedTask.textContent != "") {
@@ -168,7 +183,7 @@ function checkTask(event) {
 
         let divInfo = divTask.querySelector("div:nth-child(2)");
         let opacity = 1;
-        task.style.animation = "width 0.33s ease-out forwards";
+        task.style.animation = "height 0.33s ease-out forwards";
         let interval = setInterval(() => {
             divInfo.style.backgroundColor = "#c0f2b085";
             opacity -= 0.1;
@@ -181,6 +196,8 @@ function checkTask(event) {
 
         if (task.id.startsWith("new_task")) {
             t_complete++;
+            n_tasks--;
+            setCookies("n_tasks", n_tasks, 7);
             setCookies("t_complete", t_complete, 7);
             setCookies(`completed_task_${t_complete}`, getCookie(task.id), 7);
             removeCookie(task.id);
@@ -190,42 +207,18 @@ function checkTask(event) {
 
 function removeTask(event) {
     const clickedTask = event.target;
-    // if (clickedTask.tagName === "LABEL" && clickedTask.parentNode.parentNode.parentNode.id.startsWith("new_task")) {
-    //     let divInfo = clickedTask.parentNode;
-    //     let divTask = divInfo.parentNode;
-    //     let task = divTask.parentNode;
-    //     let list = task.parentNode;
-
-    //     let opacity = 1;
-    //     divTask.style.animation = "height 0.33s ease-out forwards";
-    //     let interval = setInterval(() => {
-    //         divInfo.style.backgroundColor = "#FA707060";
-    //         divInfo.style.textDecoration = "line-through";
-    //         opacity -= 0.1;
-    //         divTask.style.opacity = opacity;
-    //         if (opacity <= 0) {
-    //             clearInterval(interval);
-    //             list.removeChild(task);
-    //         }
-    //     }, 30);
-
-    //     if (task.id.startsWith("new_task")) {
-    //         n_tasks--;
-    //         setCookies("n_tasks", n_tasks, 7);
-    //         removeCookie(task.id);
-    //     }
-    // }
-
-    if (clickedTask.className === "divInfo" && clickedTask.parentNode.parentNode.id.startsWith("new_task")) {
-        let divTask = clickedTask.parentNode;
-        let task = divTask.parentNode;
-        let list = task.parentNode;
-
+    let span = clickedTask.parentNode;
+    let div_3 = span.parentNode;
+    let divInfo = div_3.parentNode;
+    let divTask = divInfo.parentNode;
+    let task = divTask.parentNode;
+    let list = task.parentNode;
+    console.log(clickedTask);
+    if (clickedTask.tagName == "I") {
         let opacity = 1;
-        divTask.style.animation = "height 0.33s ease-out forwards";
+        divTask.style.animation = "width 0.33s ease-out forwards";
         let interval = setInterval(() => {
-            clickedTask.style.backgroundColor = "#FA707060";
-            clickedTask.style.textDecoration = "line-through";
+            divInfo.style.backgroundColor = "#FA707060";
             opacity -= 0.1;
             divTask.style.opacity = opacity;
             if (opacity <= 0) {
@@ -237,6 +230,15 @@ function removeTask(event) {
         if (task.id.startsWith("new_task")) {
             n_tasks--;
             setCookies("n_tasks", n_tasks, 7);
+            removeCookie(task.id);
+        } else {
+            t_complete--;
+            n_tasks++;
+            let cname = "new_task_";
+            setCookies("n_tasks", n_tasks, 7);
+            setCookies("t_complete", t_complete, 7);
+            setCookies(cname + n_tasks, getCookie(task.id), 7);
+            addToList(cname, getCookie(task.id), n_tasks);
             removeCookie(task.id);
         }
     }
@@ -261,17 +263,17 @@ list.addEventListener("click", removeTask);
 
 
 let iconChange = true;
-icon.addEventListener("click", () => {
+eyeIcon.addEventListener("click", () => {
     if (iconChange) {
         iconChange = !iconChange;
-        icon.className = "fa-regular fa-eye fa-sm";
-        icon.title = "Visible Mode";
+        eyeIcon.className = "fa-regular fa-eye fa-sm";
+        eyeIcon.title = "Visible Mode";
         printCookies("completed");
     }
     else {
         iconChange = !iconChange;
-        icon.className = "fa-regular fa-eye-slash fa-sm";
-        icon.title = "Hide Mode";
+        eyeIcon.className = "fa-regular fa-eye-slash fa-sm";
+        eyeIcon.title = "Hide Mode";
         let children = Array.from(list.children);
         for (let child of children) {
             if (child.id.startsWith("completed")) {
